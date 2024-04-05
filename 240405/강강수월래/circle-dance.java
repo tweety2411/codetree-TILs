@@ -2,106 +2,116 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
-    public static int n, m;
-    static Node[] nodes;
-    static HashMap<Integer, Integer> studentIds;
+    static class Node {
+        int id;
+        Node prev, next;
+
+        Node(int id) {
+            this.id = id;
+            this.prev = null;
+            this.next = null;
+        }
+    }
+
+    private static final int MAX_N = 100000;
+
+    // 학생들을 관리해 줄 배열입니다.
+    private static Node[] nodes = new Node[MAX_N + 2];
+
+    // 학생들의 번호의 범위가 1 ~ 10억이기 때문에, map으로 학생들의 번호들을 관리해줍니다.
+    private static HashMap<Integer, Integer> studentId = new HashMap<>();
+
+    // 두 사람을 연결합니다.
+    private static void connect(Node s, Node e) {
+        if (s != null) s.next = e;
+        if (e != null) e.prev = s;
+    }
+
+    // 두 원을 연결합니다.
+    private static void connectCircle(Node u, Node v) {
+        Node vPrev = v.prev;
+        Node uNext = u.next;
+
+        connect(u, v);
+        connect(vPrev, uNext);
+    }
+
+    // 두 원을 쪼갭니다.
+    private static void splitCircle(Node u, Node v) {
+        Node uPrev = u.prev;
+        Node vPrev = v.prev;
+
+        connect(uPrev, v);
+        connect(vPrev, u);
+    }
+
+    // 원을 출력합니다.
+    private static void printLine(Node target) {
+        // 원에서 학생 번호가 가장 작은 학생을 찾습니다.
+        int mn = target.id;
+        Node cur = target;
+        while (true) {
+            cur = cur.next;
+            if (cur != null) mn = Math.min(mn, cur.id);
+            if (cur == target) break;
+        }
+
+        // 가장 작은 학생부터 출력합니다.
+        Node init = nodes[studentId.get(mn)];
+        cur = nodes[studentId.get(mn)];
+        do {
+            System.out.print(cur.id + " ");
+            // 반시계 방향으로 돌면서 출력합니다.
+            cur = cur.prev;
+        } while (cur.id != init.id);
+        System.out.println();
+    }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        m = sc.nextInt();
+        int n = sc.nextInt();
+        int m = sc.nextInt();
         int q = sc.nextInt();
-        nodes = new Node[100_002];
-        studentIds = new HashMap<>();
 
-        int nodeCount = 1;
-        for (int i = 1; i < m + 1; i++) {
-            int num = sc.nextInt();
-            Node prev = null;
-            Node head = null;
-            for (int j = 1; j < num + 1; j++) {
-                int data = sc.nextInt();
-                Node node = new Node(data);
-                nodes[nodeCount] = node;
-                studentIds.put(data, nodeCount);
-                if (j == 1) {
-                    head = node;
+        // 각 학생의 번호를 저장합니다.
+        int nodeCnt = 1;
+        for (int i = 1; i <= m; i++) {
+            int circleSize = sc.nextInt();
+            Node start = null, tail = null;
+            for (int j = 0; j < circleSize; j++) {
+                int studentNum = sc.nextInt();
+                studentId.put(studentNum, nodeCnt);
+                nodes[nodeCnt] = new Node(studentNum);
+                if (j == 0) {
+                    start = nodes[nodeCnt];
+                    tail = nodes[nodeCnt];
                 } else {
-                    connect(prev, node);
-                    if (j == num)
-                        connect(node, head);
+                    connect(tail, nodes[nodeCnt]);
+                    tail = nodes[nodeCnt];
+                    if (j == circleSize - 1) {
+                        // 원에서의 마지막 학생은 해당 원의 첫 학생과 연결합니다.
+                        connect(tail, start);
+                    }
                 }
-                prev = node;
-                nodeCount++;
+                nodeCnt++;
             }
         }
 
-        while (q-- > 0) {
-            int opt = sc.nextInt();
-            if (opt == 1) { // a랑 b를 합치기
+        // q개의 행동을 진행합니다.
+        for (int i = 0; i < q; i++) {
+            int option = sc.nextInt();
+            if (option == 1) {
                 int a = sc.nextInt();
                 int b = sc.nextInt();
-
-                connectCircle(a, b);
-
-            } else if (opt == 2) { // 분리하기
+                connectCircle(nodes[studentId.get(a)], nodes[studentId.get(b)]);
+            } else if (option == 2) {
                 int a = sc.nextInt();
                 int b = sc.nextInt();
-
-                seperateCircle(a, b);
-            } else if (opt == 3) {
+                splitCircle(nodes[studentId.get(a)], nodes[studentId.get(b)]);
+            } else if (option == 3) {
                 int a = sc.nextInt();
-                Node target = nodes[studentIds.get(a)];
-                int mn = target.data;
-                Node cur = target;
-                while (true) {
-                    cur = cur.next;
-                    if (cur != null)
-                        mn = Math.min(mn, cur.data);
-                    if (cur == target)
-                        break;
-                }
-
-                Node init = nodes[studentIds.get(mn)];
-                cur = nodes[studentIds.get(mn)];
-                do {
-                    System.out.print(cur.data + " ");
-                    cur = cur.prev;
-                } while (cur.data != init.data);
-                System.out.println();
+                printLine(nodes[studentId.get(a)]);
             }
         }
-    }
-
-    private static void seperateCircle(int a, int b) {
-
-        connect(nodes[studentIds.get(a)].prev, nodes[studentIds.get(b)]);
-        connect(nodes[studentIds.get(b)].prev, nodes[studentIds.get(a)]);
-
-    }
-
-    private static void connectCircle(int a, int b) {
-        connect(nodes[studentIds.get(b)].prev, nodes[studentIds.get(a)].next);
-        connect(nodes[studentIds.get(a)], nodes[studentIds.get(b)]);
-
-    }
-
-    private static void connect(Node s, Node e) {
-        if (null != s)
-            s.next = e;
-        if (null != e)
-            e.prev = s;
-    }
-
-}
-
-class Node {
-    int data;
-    Node prev;
-    Node next;
-
-    public Node(int data) {
-        this.data = data;
-        this.prev = this.next = null;
     }
 }
