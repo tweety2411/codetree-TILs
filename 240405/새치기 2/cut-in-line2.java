@@ -98,13 +98,13 @@ public class Main {
 
     private static void insertRange(Node a, Node b, Node c) {
         if(headers[lineNums.get(a.data)] == a) {
-            headers[lineNums.get(a.data)] = a.next;
-            if(a.next == null)
+            headers[lineNums.get(a.data)] = b.next;
+            if(b.next == null)
                 headers[lineNums.get(a.data)] = tails[lineNums.get(a.data)] = null;
         }
         if(tails[lineNums.get(b.data)] == b) {
-            tails[lineNums.get(b.data)] = b.prev;
-            if(b.prev == null)
+            tails[lineNums.get(b.data)] = a.prev;
+            if(a.prev == null)
                 headers[lineNums.get(b.data)] = tails[lineNums.get(b.data)] = null;
         }
         connect(a.prev, b.next);
