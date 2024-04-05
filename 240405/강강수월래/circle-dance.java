@@ -76,16 +76,9 @@ public class Main {
     }
 
     private static void seperateCircle(int a, int b) {
-        Node cur = nodes[studentIds.get(a)];
-        while (cur.data != b) {
-            cur = cur.next;
 
-        }
-        Node last = cur.prev;
-        int x = last.data;
-
-        connect(nodes[studentIds.get(a)].prev, nodes[studentIds.get(x)].next);
-        connect(nodes[studentIds.get(x)], nodes[studentIds.get(a)]);
+        connect(nodes[studentIds.get(a)].prev, nodes[studentIds.get(b)]);
+        connect(nodes[studentIds.get(b)].prev, nodes[studentIds.get(a)]);
 
     }
 
