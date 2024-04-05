@@ -37,13 +37,13 @@ public class Main {
             }
         }
 
-        while (q-- > 0) {
+        for (int i = 0; i < q; i++) {
             int opt = sc.nextInt();
             if (opt == 1) { // a랑 b를 합치기
                 int a = sc.nextInt();
                 int b = sc.nextInt();
 
-                connectCircle(a, b);
+                connectCircle(nodes[studentIds.get(a)], nodes[studentIds.get(b)]);
 
             } else if (opt == 2) { // 분리하기
                 int a = sc.nextInt();
@@ -81,9 +81,12 @@ public class Main {
 
     }
 
-    private static void connectCircle(int a, int b) {
-        connect(nodes[studentIds.get(b)].prev, nodes[studentIds.get(a)].next);
-        connect(nodes[studentIds.get(a)], nodes[studentIds.get(b)]);
+    private static void connectCircle(Node u, Node v) {
+        Node vPrev = v.prev;
+        Node uNext = u.next;
+
+        connect(u, v);
+        connect(vPrev, uNext);
 
     }
 
