@@ -53,7 +53,7 @@ public class Main {
                 int a = sc.nextInt();
 
                 Node cur = nodes[studentIds.get(a)];
-                int min = Integer.MAX_VALUE;
+                int min = cur.data;
                 Node target = cur;
                 while (true) {
                     cur = cur.next;
@@ -64,7 +64,8 @@ public class Main {
                 }
 
                 Node minNode = nodes[studentIds.get(min)];
-                cur = minNode;
+                cur = nodes[studentIds.get(min)];
+                ;
                 do {
                     System.out.print(cur.data + " ");
                     cur = cur.prev;
