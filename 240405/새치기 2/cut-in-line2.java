@@ -70,7 +70,7 @@ public class Main {
                 while(true) {
                     lineNums.put(cur.data, lineNums.get(c));
                     cur = cur.next;
-                    if(cur.data == b) break;
+                    if(cur.data.equals(b)) break;
                 }
             }
 
