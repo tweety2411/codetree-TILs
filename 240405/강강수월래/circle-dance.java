@@ -49,7 +49,7 @@ public class Main {
                 int a = sc.nextInt();
                 int b = sc.nextInt();
 
-                seperateCircle(a, b);
+                splitCircle(nodes[studentIds.get(a)], nodes[studentIds.get(b)]);
             } else if (opt == 3) {
                 int a = sc.nextInt();
                 Node target = nodes[studentIds.get(a)];
@@ -74,11 +74,12 @@ public class Main {
         }
     }
 
-    private static void seperateCircle(int a, int b) {
+    private static void splitCircle(Node u, Node v) {
+        Node uPrev = u.prev;
+        Node vPrev = v.prev;
 
-        connect(nodes[studentIds.get(a)].prev, nodes[studentIds.get(b)]);
-        connect(nodes[studentIds.get(b)].prev, nodes[studentIds.get(a)]);
-
+        connect(uPrev, v);
+        connect(vPrev, u);
     }
 
     private static void connectCircle(Node u, Node v) {
