@@ -51,7 +51,7 @@ public class Main {
                 seperateCircle(a, b);
             } else if (opt == 3) {
                 int a = sc.nextInt();
-                Node target = nodes[a];
+                Node target = nodes[studentIds.get(a)];
                 int mn = target.data;
                 Node cur = target;
                 while (true) {
