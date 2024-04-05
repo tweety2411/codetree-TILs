@@ -51,26 +51,23 @@ public class Main {
                 seperateCircle(a, b);
             } else if (opt == 3) {
                 int a = sc.nextInt();
-
-                Node cur = nodes[studentIds.get(a)];
-                int min = cur.data;
-                Node target = cur;
+                Node target = nodes[a];
+                int mn = target.data;
+                Node cur = target;
                 while (true) {
                     cur = cur.next;
                     if (cur != null)
-                        min = Math.min(min, cur.data);
+                        mn = Math.min(mn, cur.data);
                     if (cur == target)
                         break;
                 }
 
-                Node minNode = nodes[studentIds.get(min)];
-                cur = nodes[studentIds.get(min)];
-                ;
+                Node init = nodes[studentIds.get(mn)];
+                cur = nodes[studentIds.get(mn)];
                 do {
                     System.out.print(cur.data + " ");
                     cur = cur.prev;
-                } while (cur.data != minNode.data);
-
+                } while (cur.data != init.data);
                 System.out.println();
             }
         }
