@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -6,6 +7,7 @@ public class Main {
     static int n, m, ans;
     static int[] arr;
     static int[] prefixSum;
+    static HashMap<Integer, Integer> map;
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -13,8 +15,9 @@ public class Main {
         n = sc.nextInt();
         int q = sc.nextInt();
 
-        arr = new int[100_001];
-        prefixSum = new int[100_001];
+        map = new HashMap<>();
+        arr = new int[1000001];
+        prefixSum = new int[100001];
 
         int max = 0;
         for(int i = 1; i < n+1; i++) {
