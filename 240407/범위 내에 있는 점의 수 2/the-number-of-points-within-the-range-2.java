@@ -16,26 +16,30 @@ public class Main {
         int q = sc.nextInt();
 
         map = new HashMap<>();
-        arr = new int[1000001];
-        prefixSum = new int[100001];
+        arr = new int[100001];
+        prefixSum = new int[1000001];
 
-        int max = 0;
         for(int i = 1; i < n+1; i++) {
             int num = sc.nextInt();
-            arr[num] = 1;
-            max = Math.max(num, max);
+            arr[i] = num;
+            prefixSum[arr[i]]++;
         }
 
-        for(int i = 1; i <=max; i++) {
-            prefixSum[i] = prefixSum[i-1] + arr[i];
+        for(int i = 1; i <=1000000; i++) {
+            prefixSum[i] += prefixSum[i-1];
         }
 
         for(int i = 0; i < q; i++) {
             int s = sc.nextInt();
             int e = sc.nextInt();
 
-            int result = prefixSum[e] - prefixSum[s] + arr[s];
-            System.out.println(result);
+            if(s == 0) {
+                System.out.println( prefixSum[e]);
+            } else {
+                int result = prefixSum[e] - prefixSum[s-1] ;
+                System.out.println(result);
+
+            }
         }
 
     }
