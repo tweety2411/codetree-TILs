@@ -16,14 +16,16 @@ public class Main {
         arr = new int[n+1][n+1];
         prefixSum = new int[n+1][n+1];
 
+        ans = Integer.MIN_VALUE;
         for(int i = 1; i <=n; i++) {
             for(int j = 1; j <=n; j++) {
                 arr[i][j] = sc.nextInt();
+                ans = Math.max(ans, arr[i][j]);
                 prefixSum[i][j] = prefixSum[i-1][j] + prefixSum[i][j-1] - prefixSum[i-1][j-1] + arr[i][j];
             }
         }
 
-        ans = Integer.MIN_VALUE;
+        
         for(int i = 1; i <= n; i++) {
             for(int j = 1; j <= n; j++) {
                int result = getSumWidth(i, j);
