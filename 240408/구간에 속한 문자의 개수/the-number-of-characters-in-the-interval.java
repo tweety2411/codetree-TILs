@@ -1,4 +1,6 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
     public static int n, m, ans;
@@ -7,11 +9,13 @@ public class Main {
     static int[][] prefixSum_b;
     static int[][] prefixSum_c;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        m = sc.nextInt();
-        int k = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        // Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] lines = br.readLine().split(" ");
+        n = Integer.parseInt(lines[0]);
+        m = Integer.parseInt(lines[1]);
+        int k = Integer.parseInt(lines[2]);
 
         arr = new String[n + 1][m + 1];
         prefixSum_a = new int[n + 1][m + 1];
@@ -19,7 +23,7 @@ public class Main {
         prefixSum_c = new int[n + 1][m + 1];
 
         for (int i = 1; i < n + 1; i++) {
-            String[] strs = sc.next().split("");
+            String[] strs = br.readLine().split("");
             for (int j = 1; j < m + 1; j++) {
                 arr[i][j] = strs[j - 1];
                 String word = arr[i][j];
@@ -37,10 +41,11 @@ public class Main {
         }
 
         for (int i = 0; i < k; i++) {
-            int x1 = sc.nextInt();
-            int y1 = sc.nextInt();
-            int x2 = sc.nextInt();
-            int y2 = sc.nextInt();
+            lines = br.readLine().split(" ");
+            int x1 = Integer.parseInt(lines[0]);
+            int y1 = Integer.parseInt(lines[1]);
+            int x2 = Integer.parseInt(lines[2]);
+            int y2 = Integer.parseInt(lines[3]);
 
             int a = getSumA(x1, y1, x2, y2);
             int b = getSumB(x1, y1, x2, y2);
