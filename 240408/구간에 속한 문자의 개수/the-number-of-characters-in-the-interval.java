@@ -22,11 +22,6 @@ public class Main {
             String[] strs = sc.next().split("");
             for (int j = 1; j < m + 1; j++) {
                 arr[i][j] = strs[j - 1];
-            }
-        }
-
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 1; j < m + 1; j++) {
                 String word = arr[i][j];
                 prefixSum_a[i][j] = prefixSum_a[i - 1][j] + prefixSum_a[i][j - 1] - prefixSum_a[i - 1][j - 1];
                 prefixSum_b[i][j] = prefixSum_b[i - 1][j] + prefixSum_b[i][j - 1] - prefixSum_b[i - 1][j - 1];
