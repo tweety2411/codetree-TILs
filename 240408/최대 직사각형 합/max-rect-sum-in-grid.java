@@ -19,9 +19,10 @@ public class Main {
             }
         }
 
+        ans = Integer.MIN_VALUE;
         for (int i = 1; i < n + 1; i++) {
             for (int j = i; j < n + 1; j++) {
-                ans = getMaxArea(i, j);
+                ans = Math.max(ans, getMaxArea(i, j));
             }
         }
 
