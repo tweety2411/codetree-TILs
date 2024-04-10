@@ -10,6 +10,8 @@ public class Main {
     static int[] arr;
     static TreeSet<Integer> sets;
     static HashMap<Integer, Integer> map;
+    
+    static Point[] points;
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -32,10 +34,17 @@ public class Main {
             cnt++;
         }
 
+        points = new Point[q];
         for(int i = 0; i < q; i++) {
             int a = sc.nextInt();
             int b = sc.nextInt();
 
+            points[i] = new Point(a, b);
+        }
+        
+        for(int i = 0; i < q; i++) {
+            int a = points[i].x;
+            int b = points[i].y;
             if(sets.ceiling(a) == null || sets.floor(b) == null) {
                 System.out.println(0);
             } else {
@@ -44,9 +53,18 @@ public class Main {
                 System.out.println(newB - newA + 1);
             }
 
-
         }
     }
 
 
+}
+
+class Point {
+    int x;
+    int y;
+    
+    public  Point (int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }
