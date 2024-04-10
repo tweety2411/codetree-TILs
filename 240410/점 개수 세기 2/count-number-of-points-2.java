@@ -9,6 +9,7 @@ public class Main {
     static Point[] arr;
     static int[][] prefixSum;
     static TreeSet<Integer> sets;
+    static Tuple[] tuples;
 
     static HashMap<Integer, Integer> map;
     public static void main(String[] args) {
@@ -44,22 +45,28 @@ public class Main {
             prefixSum[x][y]++;
         }
 
-        for(int i = 1; i <= cnt; i++ ) {
-            for(int j = 1; j <= cnt; j++) {
-                prefixSum[i][j] += prefixSum[i-1][j] + prefixSum[i][j-1] - prefixSum[i-1][j-1];
-            }
-        }
-
+        tuples = new Tuple[q];
         for (int i = 0; i < q; i++) {
             int x1 = sc.nextInt();
             int y1 = sc.nextInt();
             int x2 = sc.nextInt();
             int y2 = sc.nextInt();
+            
+            tuples[i] = new Tuple(x1, y1, x2, y2);
+        }
 
-            int newX1 = getUpperBoundry(x1);
-            int newY1 = getUpperBoundry(y1);
-            int newX2 = getLowerBoundry(x2);
-            int newY2 = getLowerBoundry(y2);
+        for(int i = 1; i <= cnt; i++ ) {
+            for(int j = 1; j <= cnt; j++) {
+                prefixSum[i][j] += prefixSum[i-1][j] + prefixSum[i][j-1] - prefixSum[i-1][j-1];
+            }
+        }
+        
+        for(int i = 0; i < q; i++) {
+
+            int newX1 = getUpperBoundry(tuples[i].x1);
+            int newY1 = getUpperBoundry(tuples[i].y1);
+            int newX2 = getLowerBoundry(tuples[i].x2);
+            int newY2 = getLowerBoundry(tuples[i].y2);
 
             ans = getSum(newX1, newY1, newX2, newY2);
             System.out.println(ans);
@@ -92,5 +99,19 @@ class Point {
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+}
+
+class Tuple {
+    int x1;
+    int y1;
+    int x2;
+    int y2;
+
+    public Tuple(int x1, int y1, int x2, int y2) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
     }
 }
