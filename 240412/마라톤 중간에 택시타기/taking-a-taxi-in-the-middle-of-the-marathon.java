@@ -23,17 +23,16 @@ public class Main {
         L_arrs = new int[n + 1];
         R_arrs = new int[n + 1];
 
-        points[0] = new Point(0, 0);
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i < n; i++) {
             points[i] = new Point(sc.nextInt(), sc.nextInt());
         }
 
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i < n; i++) {
             L_arrs[i] = L_arrs[i - 1] + Math.abs(points[i].x - points[i - 1].x)
                     + Math.abs(points[i].y - points[i - 1].y);
         }
 
-        for (int i = n - 1; i > 0; i--) {
+        for (int i = n - 2; i >= 0; i--) {
             R_arrs[i] = R_arrs[i + 1] + Math.abs(points[i + 1].x - points[i].x)
                     + Math.abs(points[i + 1].y - points[i].y);
         }
