@@ -25,7 +25,7 @@ public class Main {
 
 			@Override
 			public int compare(String o1, String o2) {
-				return Integer.valueOf(o2+o1) - Integer.valueOf(o1+o2);
+				return (int) (Long.valueOf(o2+o1) - Long.valueOf(o1+o2));
 			}
 		});
 		
