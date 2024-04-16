@@ -1,5 +1,8 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -15,17 +18,20 @@ public class Main {
 		
 		arr = new int[n];
 		
-		String[] arrs = new String[n];
+		Integer[] arrs = new Integer[n];
+		
 		
 		for(int i = 0; i < n ; i++) {
-			arrs[i] = String.valueOf(sc.nextInt());
+			arrs[i] = sc.nextInt();
 		}
 		
-		 Arrays.sort(arrs, new Comparator<String>() {
+		 Arrays.sort(arrs, new Comparator<Integer>() {
 
 			@Override
-			public int compare(String o1, String o2) {
-				return (int) (Long.valueOf(o2+o1) - Long.valueOf(o1+o2));
+			public int compare(Integer o1, Integer o2) {
+				String s1 = Integer.toString(o1) + Integer.toString(o2);
+				String s2 = Integer.toString(o2) + Integer.toString(o1);
+				return s2.compareTo(s1);
 			}
 		});
 		
