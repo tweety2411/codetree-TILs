@@ -11,11 +11,11 @@ public class Main {
 		
 		n = sc.nextInt();
 
-		
 			
 		int last = n;
 		ans = 0;
-		while( last > 0) {
+		if(last < 0) ans = -1;
+		while( last > -1) {
 			if(last >= 5) {
 				if(last % 5 == 0) {
 					ans += last / 5;
@@ -32,7 +32,7 @@ public class Main {
 			}
 		}
 		
-		if(last < 0) ans = -1;
+		
 		
 		System.out.println(ans);
 		 
