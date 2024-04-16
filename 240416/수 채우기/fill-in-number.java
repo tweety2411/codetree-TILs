@@ -11,8 +11,8 @@ public class Main {
 		
 		n = sc.nextInt();
 
-		arr = new int[n+1];
 		
+			
 		int last = n;
 		ans = 0;
 		while( last > 0) {
@@ -31,6 +31,8 @@ public class Main {
 				}
 			}
 		}
+		
+		if(last < 0) ans = -1;
 		
 		System.out.println(ans);
 		 
