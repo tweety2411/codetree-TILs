@@ -29,8 +29,8 @@ public class Main {
         for (int i = 0; i < n; i++) {
             if (null != sets.higher(arr[i])) {
                 int a = sets.higher(arr[i]);
-                ans += a - arr[i];
-                sets.remove(sets.higher(arr[i]));
+                ans++;
+                sets.remove(a);
             }
         }
 
